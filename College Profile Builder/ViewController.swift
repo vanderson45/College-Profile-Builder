@@ -16,23 +16,43 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     var myCollegeObject:[CollegeClass] = []
     
-    override func viewDidLoad() {
+    
+    override func viewDidAppear(_ animated: Bool)
+    {
+        myTableView.reloadData()
+    }
+    
+   
+    
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
-        myCollegeObject.append(CollegeClass(School: "Michigan State", Location: "Lansing", NumberOfStudents: "30,000", Image: UIImage(named: "defualt")!))
-        myCollegeObject.append(CollegeClass(School: "Indiana", Location: "Bloomington", NumberOfStudents: "25,000", Image: UIImage(named: "defualt")!))
-        myCollegeObject.append(CollegeClass(School: "Florida State", Location: "Tallahassee", NumberOfStudents: "35,000", Image: UIImage(named: "defualt")!))
+        myCollegeObject.append(CollegeClass(School: "Michigan State", Location: "Lansing", NumberOfStudents: "30,000", Image: UIImage(named: "MichiganState")!, Link: "https://msu.edu"))
+        
+        myCollegeObject.append(CollegeClass(School: "Indiana", Location: "Bloomington", NumberOfStudents: "25,000", Image: UIImage(named: "Indiana")!, Link: "https://indiana.edu/"))
+        
+        myCollegeObject.append(CollegeClass(School: "Florida State", Location: "Tallahassee", NumberOfStudents: "35,000", Image: UIImage(named: "FloridaState")!, Link: "https://www.fsu.edu"))
        
         
     }
-    //add to list of movies
+
+    
+    
     @IBAction func addButtonTapped(_ sender: Any)
     {
+    
         let  alert = UIAlertController(title: "add school", message: nil, preferredStyle: .alert)
         
-        alert.addTextField{ (schoolTextField) in schoolTextField.placeholder = "add school"
+        alert.addTextField
+            {
+            (schoolTextField) in schoolTextField.placeholder = "add school"
         }
-        
-        alert.addTextField{ (locationTextField) in locationTextField.placeholder = "add location"
+            
+       
+            
+        alert.addTextField
+        {
+            (locationTextField) in locationTextField.placeholder = "add location"
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -83,11 +103,25 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     
     
+
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)  //connecting the segue
     
+    {
+        let detailView = segue.destination as! detailViewController
+        
+        let  selectedRow = myTableView.indexPathForSelectedRow?.row
+        
+        detailView.collegeDetail = myCollegeObject[selectedRow!]
+        
+    }
+
     
-    
-    
-    
+
+
     
     
 }
+
+    
+
